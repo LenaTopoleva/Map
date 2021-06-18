@@ -26,7 +26,7 @@ abstract class BaseViewModel<T : AppState>(
     abstract fun backPressed(): Boolean
 
     override fun onCleared() {
-        println("viewmodel cleared")
+        println("viewModel cleared")
         super.onCleared()
         cancelJob()
     }

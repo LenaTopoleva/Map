@@ -37,6 +37,8 @@ class MarkerListAdapter(private var onListItemClickListener: OnListItemClickList
                 if (layoutPosition != RecyclerView.NO_POSITION) {
                     itemView.marker_name_textview.text = data.name
                     itemView.marker_annotation_textview.text = data.annotation
+                    itemView.latitude_textView.text = data.latitude.toString().subSequence(0,7)
+                    itemView.longitude_textView.text = data.longitude.toString().subSequence(0,7)
 
                     itemView.setOnClickListener { openInNewWindow(data) }
                 }
