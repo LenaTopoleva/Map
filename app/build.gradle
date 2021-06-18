@@ -10,13 +10,16 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.lenatopoleva.dictionary"
+        applicationId "com.lenatopoleva.map"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Secret GoogleMaps API KEY
+        buildConfigField("String", "MAP_API_KEY", MAP_API_KEY)
     }
 
     buildTypes {
@@ -79,7 +82,6 @@ dependencies {
 
     //Maps
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
-
 
     //Test
     testImplementation 'junit:junit:4.13.1'

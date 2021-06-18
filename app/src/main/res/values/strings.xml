@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dictionary</string>
+    <string name="app_name">Map</string>
     <string name="error_stub">Error</string>
     <string name="reload_button">Reload</string>
     <string name="undefined_error">Undefined error</string>
@@ -11,7 +11,6 @@
     <string name="dialog_button_cancel">Cancel</string>
     <string name="dialog_title_stub">Undefined error</string>
     <string name="dialog_tittle_sorry">Sorry</string>
-    <string name="menu_title_history">History</string>
     <string name="search">Search</string>
     <string name="markers">Markers</string>
 </resources>
