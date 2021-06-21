@@ -42,6 +42,22 @@ class MarkerListFragment: BaseFragment<AppState>(), BackButtonListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         model.subscribe().observe(viewLifecycleOwner, observer)
+        model.openDialogFragmentLiveData.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled().let { markerItem ->
+                println("OPEN dialog fragment")
+                openDialogFragment(markerItem?.listIndex, markerItem?.name, markerItem?.annotation)
+            }
+        })
+        model.saveEditMarkerLiveData.observe(viewLifecycleOwner, Observer { event ->
+            event.peekContent().let { position ->
+                adapter?.notifyItemChanged(position)
+            }
+        })
+        model.removeItemLiveData.observe(viewLifecycleOwner, Observer { event ->
+            event.peekContent().let { position ->
+                adapter?.notifyItemRemoved(position)
+            }
+        })
     }
 
     override fun onResume() {
@@ -50,12 +66,17 @@ class MarkerListFragment: BaseFragment<AppState>(), BackButtonListener {
     }
 
     override fun handleData(data: List<DataModel>) {
+        model.handleData(data)
         if (adapter == null) {
             markers_recyclerview.layoutManager = LinearLayoutManager(context)
-            markers_recyclerview.adapter = MarkerListAdapter(onListItemClickListener, data)
-        } else {
-            adapter!!.setData(data)
+            adapter = MarkerListAdapter(onListItemClickListener, model)
+            markers_recyclerview.adapter = adapter
         }
+    }
+
+    fun openDialogFragment(layoutPosition: Int?, name: String?, annotation: String?) {
+        val dialogFragment = MarkerDialogFragment.newInstance(layoutPosition, name, annotation)
+        dialogFragment.show(childFragmentManager, "MarkerDialogFragment")
     }
 
     override fun backPressed(): Boolean = model.backPressed()

@@ -13,4 +13,8 @@
     <string name="dialog_tittle_sorry">Sorry</string>
     <string name="search">Search</string>
     <string name="markers">Markers</string>
+    <string name="place">Place</string>
+    <string name="annotation">Annotation</string>
+    <string name="save">SAVE</string>
+    <string name="cancel">CANCEL</string>
 </resources>

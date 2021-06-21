@@ -17,6 +17,29 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Header" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/removeItemImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:tint="?colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/marker_name_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/marker_name_textview"
+        app:srcCompat="@drawable/ic_baseline_delete" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/editImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:tint="?colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/marker_name_textview"
+        app:layout_constraintEnd_toStartOf="@+id/removeItemImageView"
+        app:layout_constraintTop_toTopOf="@+id/marker_name_textview"
+        app:srcCompat="@drawable/ic_baseline_edit" />
+
     <TextView
         android:id="@+id/marker_annotation_textview"
         android:layout_width="wrap_content"
@@ -24,39 +47,36 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/marker_name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/marker_name_textview"
         tools:text="Header" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/hairline"
-        android:layout_marginTop="10dp"
         android:background="@color/color_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/marker_annotation_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/latitude_textView" />
 
     <TextView
         android:id="@+id/latitude_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/longitude_textView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/marker_name_textview"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/marker_annotation_textview" />
 
     <TextView
         android:id="@+id/longitude_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/latitude_textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/marker_annotation_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

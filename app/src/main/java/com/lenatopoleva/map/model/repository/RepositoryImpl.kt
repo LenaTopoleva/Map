@@ -13,4 +13,13 @@ class RepositoryImpl: Repository<List<DataModel>> {
     override suspend fun saveData(place: DataModel) {
         marks.add(place)
     }
+
+    override suspend fun removeData(position: Int) {
+        marks.removeAt(position)
+    }
+
+    override suspend fun editData(position: Int, name: String?, annotation: String?) {
+        marks[position].name = name ?: ""
+        marks[position].annotation = annotation ?: ""
+    }
 }

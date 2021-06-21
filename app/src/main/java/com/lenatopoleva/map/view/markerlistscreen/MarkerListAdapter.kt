@@ -8,30 +8,35 @@ import com.lenatopoleva.map.R
 import com.lenatopoleva.map.model.data.DataModel
 import kotlinx.android.synthetic.main.marker_item.view.*
 
-class MarkerListAdapter(private var onListItemClickListener: OnListItemClickListener, private var data: List<DataModel>) :
+class MarkerListAdapter(private var onListItemClickListener: OnListItemClickListener,
+private var model: MarkerListViewModel) :
         RecyclerView.Adapter<MarkerListAdapter.RecyclerItemViewHolder>() {
 
-        fun setData(data: List<DataModel>) {
-            this.data = data
-            notifyDataSetChanged()
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerItemViewHolder {
+        return RecyclerItemViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.marker_item, parent, false) as View
+        )
+    }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerItemViewHolder {
-            return RecyclerItemViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.marker_item, parent, false) as View
-            )
-        }
+    override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
+        holder.bind(model.getMarkerList()[position])
+    }
 
-        override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
-            holder.bind(data.get(position))
-        }
+    override fun getItemCount(): Int {
+        return model.getItemCount()
+    }
 
-        override fun getItemCount(): Int {
-            return data.size
-        }
+    private fun openDialog(layoutPosition: Int, name: String, annotation: String?) {
+        model.markerListEditItemBtnClicked(layoutPosition, name, annotation)
+    }
 
-        inner class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private fun removeItem(layoutPosition: Int){
+        model.markerListRemoveItemBtnClicked(layoutPosition)
+    }
+
+
+    inner class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
             fun bind(data: DataModel) {
                 if (layoutPosition != RecyclerView.NO_POSITION) {
@@ -40,6 +45,8 @@ class MarkerListAdapter(private var onListItemClickListener: OnListItemClickList
                     itemView.latitude_textView.text = data.latitude.toString().subSequence(0,7)
                     itemView.longitude_textView.text = data.longitude.toString().subSequence(0,7)
 
+                    itemView.editImageView.setOnClickListener { openDialog(layoutPosition, data.name, data.annotation)}
+                    itemView.removeItemImageView.setOnClickListener { removeItem(layoutPosition)}
                     itemView.setOnClickListener { openInNewWindow(data) }
                 }
             }

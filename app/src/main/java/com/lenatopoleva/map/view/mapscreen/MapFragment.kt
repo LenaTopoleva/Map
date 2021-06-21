@@ -27,7 +27,7 @@ import org.koin.android.ext.android.getKoin
 
 class MapFragment: BaseFragment<AppState>(), BackButtonListener, OnMapReadyCallback {
 
-    private lateinit var gMap: GoogleMap
+    private var gMap: GoogleMap? = null
 
     companion object {
         fun newInstance() = MapFragment()
@@ -92,12 +92,12 @@ class MapFragment: BaseFragment<AppState>(), BackButtonListener, OnMapReadyCallb
 
     @SuppressLint("MissingPermission")
     private fun showActualMap(){
-        gMap.getUiSettings().setMyLocationButtonEnabled(true)
+        gMap?.getUiSettings()?.setMyLocationButtonEnabled(true)
         // Enable zoom controls
-        gMap.getUiSettings().setZoomControlsEnabled(true)
+        gMap?.getUiSettings()?.setZoomControlsEnabled(true)
         // For showing a move to my location button
-        gMap.setMyLocationEnabled(true)
-        gMap.setOnMapLongClickListener(OnMapLongClickListener { latLng: LatLng ->
+        gMap?.setMyLocationEnabled(true)
+        gMap?.setOnMapLongClickListener(OnMapLongClickListener { latLng: LatLng ->
             showLocation(latLng.latitude, latLng.longitude, null)
             model.makeAMark(latLng.latitude, latLng.longitude)
         })
@@ -114,10 +114,10 @@ class MapFragment: BaseFragment<AppState>(), BackButtonListener, OnMapReadyCallb
         val currentLocation: LatLng;
         if (latitude != null && longitude != null) {
             currentLocation = LatLng(latitude, longitude)
-            gMap.addMarker(MarkerOptions()
+            gMap?.addMarker(MarkerOptions()
                 .position(currentLocation)
                 .title("$name"))
-            gMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
+            gMap?.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
         } else {
             print("Cant find current location")
         }
@@ -146,7 +146,7 @@ class MapFragment: BaseFragment<AppState>(), BackButtonListener, OnMapReadyCallb
 
     override fun handleData(data: List<DataModel>) {
         for(place in data){
-            showLocation(place.latitude, place.longitude, place.name)
+           if (gMap != null) showLocation(place.latitude, place.longitude, place.name)
         }
     }
 
