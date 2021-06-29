@@ -3,6 +3,7 @@ package com.lenatopoleva.map.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lenatopoleva.map.model.data.DataModel
+import com.lenatopoleva.map.model.data.DispatcherProvider
 import com.lenatopoleva.map.model.repository.Repository
 import com.lenatopoleva.map.model.repository.RepositoryImpl
 import com.lenatopoleva.map.view.main.MainActivityViewModel
@@ -17,7 +18,7 @@ import javax.inject.Provider
 
 val application = module {
     single<Repository<List<DataModel>>> { RepositoryImpl() }
-
+    single <DispatcherProvider> { DispatcherProvider() }
 }
 
 val viewModelModule = module {
@@ -25,7 +26,7 @@ val viewModelModule = module {
         var map =
             mutableMapOf(
                 MainActivityViewModel::class.java to Provider<ViewModel>{MainActivityViewModel(get<Router>())},
-                MapViewModel::class.java to Provider<ViewModel>{MapViewModel(get(), get<Router>()) },
+                MapViewModel::class.java to Provider<ViewModel>{MapViewModel(get(), get<Router>(), get<DispatcherProvider>()) },
                 MarkerListViewModel::class.java to Provider<ViewModel>{MarkerListViewModel(get(), get<Router>()) }
             )
         map
@@ -44,7 +45,7 @@ val mainActivity = module {
 }
 
 val mapScreen = module {
-    factory { MapViewModel(get<Repository<List<DataModel>>>() as RepositoryImpl, get<Router>()) }
+    factory { MapViewModel(get<Repository<List<DataModel>>>() as RepositoryImpl, get<Router>(), get<DispatcherProvider>()) }
 }
 
 val markerListScreen = module {

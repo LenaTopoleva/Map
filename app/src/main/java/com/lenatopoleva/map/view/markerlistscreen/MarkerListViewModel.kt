@@ -64,7 +64,7 @@ class MarkerListViewModel(private val repository: Repository<List<DataModel>>, p
     }
 
     override fun onCleared() {
-        liveDataForViewToObserve.value = AppState.Success(null)//Set View to original state in onStop
+        liveDataForViewToObserve.value = AppState.Success(emptyList())//Set View to original state in onStop
         super.onCleared()
     }
 
